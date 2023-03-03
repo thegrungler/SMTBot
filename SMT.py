@@ -34,6 +34,7 @@ class demon:
                 self.stats[3]+=1
             elif temp > chance3 and temp < chance4:
                 self.stats[4]+=1
+            i+=1
         
 
 class player:
