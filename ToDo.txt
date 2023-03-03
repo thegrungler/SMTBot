@@ -1,0 +1,6 @@
+~Implement damage formula
+~Make a way to fight other Players
+~How do we encounter demons
+~Do players have levels?
+~How do demons level up
+~Where do we declare demons
