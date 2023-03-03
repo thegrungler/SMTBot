@@ -1,14 +1,14 @@
 import random
 
 class demon:
-    def __init__(demon, name, lvl, move1, move2, move3):
+    def __init__(demon, name, lvl, moves: list, stats: list, growths: list):
         demon.name = name
         demon.lvl = lvl
 #        demon.location = location
 #        demon.chance = chance
-        demon.move1 = move1
-        demon.move2 = move2
-        demon.move3 = move3
+        demon.moves = moves
+        demon.stats = stats
+        demon.growths = growths
     
     def intro(self):
         message = "Hello! My name is "+ self.name

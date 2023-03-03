@@ -16,16 +16,16 @@ tree = app_commands.CommandTree(client)
 
 PlayerList = {}
 
-@tree.command(name="NewPlayer", description="You can start finding demons!")
-async def NewPlayer(interaction):
-    if SMT.CheckKey() == True:
-        return
+@tree.command(name="newplayer", description="You can start finding demons!")
+async def newplayer(interaction):
+    if SMT.checkKey(PlayerList, interaction.user.id) == True:
+        return await interaction.response.send_message("You have already entered the world of demons", ephemeral=True)
     PlayerList[interaction.user.id] = SMT.player(interaction.user.id, 1, [])
     await interaction.response.send_message("You have been summoned!")
     
 
 
-@tree.command(name="Encounter", description="Find a demon!")
+@tree.command(name="encounter", description="Find a demon!")
 async def encounter(interaction):
     encounter = SMT.encountering(1)
     message = encounter.intro()
