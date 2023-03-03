@@ -1,5 +1,5 @@
 import random
-
+DemonList = {}
 class demon:
     def __init__(demon, name: str, lvl: int, skills: list, learnset: list, stats: list, growths: list):
         demon.name = name
@@ -42,19 +42,31 @@ class player:
         player.lvl = lvl
         player.storage = {}
 
-def encountering(lvl):
-    if lvl == 1:
-        Pixie = demon("Pixie", 1, "Dia", "Zio", " ")
-        return Pixie
+class skill:
+    def __init__(skill, type, name, power, accuracy, crit):
+        skill.type = type
+        skill.name = name
+        skill.power = power
+        skill.accuracy = accuracy
+        skill.crit = crit
 
-    if (lvl > 1) and (lvl < 5):
-        chance = random.randint(1,3)
-        if (chance < 3):
-            Slime = demon("Slime", 1, "Lunge", "Dustoma", "Poisma")
-            return Slime
-        else:
-            PyroJack = demon("Pyro Jack", 3, "Agi", "Sukunda", "Rarukaja")
-            return PyroJack
+def encountering(lvl):
+    EncounterList = []
+    i = 0
+    maxEncounter = lvl + 3
+    if maxEncounter > 99:
+        maxEncounter = 99
+    leastEncounter = lvl - 3
+    if leastEncounter < 1:
+        leastEncounter = 1
+    for demon, lvl in DemonList.items():
+        if lvl <= maxEncounter and lvl >= leastEncounter:
+            EncounterList.append(demon)
+    for demon in EncounterList:
+        i += 1
+    return EncounterList[random.randint(0,i)]
+        
+
 
 def negotiation(lvl):
 
