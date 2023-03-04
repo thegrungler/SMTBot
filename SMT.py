@@ -34,7 +34,6 @@ class demon:
                 self.stats[3]+=1
             elif temp > chance3 and temp < chance4:
                 self.stats[4]+=1
-            i+=1
         
 
 class player:
@@ -57,14 +56,18 @@ def encountering(lvl):
     maxEncounter = lvl + 3
     if maxEncounter > 99:
         maxEncounter = 99
+
     leastEncounter = lvl - 3
     if leastEncounter < 1:
         leastEncounter = 1
+
     for demon, lvl in DemonList.items():
         if lvl <= maxEncounter and lvl >= leastEncounter:
             EncounterList.append(demon)
+
     for demon in EncounterList:
         i += 1
+        
     return EncounterList[random.randint(0,i)]
         
 
@@ -80,6 +83,18 @@ def fusion(type1, lvl1, type2, lvl2):
 def dmgCalc(atk, EnDef):
     print("damage!")
     return
+
+def evasion(atkrAgi, defAgi, atkrlvl, deflvl, skillAccuracy):
+    atkrTemp = ((atkrlvl/5)+3)
+    atkrTemp = ((atkrAgi/atkrTemp)*6.25)
+    defTemp = ((deflvl/5)+3)
+    defTemp = ((defAgi/defTemp)*6.25)
+    Hit = (atkrTemp - defTemp) + skillAccuracy
+    if random.randint(0,100) <= Hit:
+        return True
+    else:
+        return False
+    
 
 #Checks if a given value is in a given dictionary
 def checkKey(dict, key):
