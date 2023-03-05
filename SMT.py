@@ -72,17 +72,36 @@ def encountering(lvl):
         
 
 
-def negotiation(lvl):
+def negotiation(lvl, deflvl):
+    if lvl < deflvl:
+        if random.randint(0,2) == 2:
+            return True
+        else: 
+            return False
+    elif lvl == deflvl:
+        if random.randint(0,1) == 1:
+            return True
+        else:
+            return False
+    else:
+        return True
 
-    return
 
 def fusion(type1, lvl1, type2, lvl2):
 
     return
 
-def dmgCalc(atk, EnDef):
-    print("damage!")
-    return
+def dmgCalc(lvl, atkPower, atk, atkBoost, enDef, enDefBoost, crit, type):
+    Damage = (((2*lvl)/5)+2)
+    Damage = (Damage*atkPower)*((atk*atkBoost)/(enDef*enDefBoost))
+    Damage = ((Damage/50)+2)
+    Random = ((random.randint(100,110))/100)
+    Damage = Damage*Random
+    if crit == True:
+        Damage = Damage*1.5
+    if type == True:
+        Damage = Damage*1.5
+    return Damage
 
 def evasion(atkrAgi, defAgi, atkrlvl, deflvl, skillAccuracy):
     atkrTemp = ((atkrlvl/5)+3)
