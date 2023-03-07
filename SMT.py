@@ -1,20 +1,29 @@
+#Only contains classes and functions. Not supposed to be ran by itself
 import random
-DemonList = {}
+
+#Temp dictionary for testing, will be replaced by (possibly) a json file containing every demon we
+#want to be encounterable
+DemonList = {"Pixie":1, "Slime":2, "Preta":3, "Yoshitsune":4}
+
 class demon:
     def __init__(demon, name: str, lvl: int, skills: list, learnset: list, stats: list, growths: list):
         demon.name = name
         demon.lvl = lvl
-#        demon.location = location
-#        demon.chance = chance
         demon.moves = skills
         demon.learnset = learnset
         demon.stats = stats
         demon.growths = growths
     
+    #Will become more in depth, I want this to maybe somehow contain the personality of
+    #each demon so they will have more unique introductions and personalities
     def intro(self):
         message = "Hello! My name is "+ self.name
         return message
     
+    #This function is called whenever the demon levels up
+    #This works by setting grabbing the chance each demon levels up and making a range with each
+    #growth chance. Three random numbers are generated, and the range that each number is in
+    #determines which stat will increase
     def levelup(self):
         i = 0
         while i < 3:
@@ -40,7 +49,8 @@ class player:
     def __init__(player, ID, lvl, storage):
         player.ID = ID
         player.lvl = lvl
-        player.storage = {}
+        player.storage = storage
+        storage = {}
 
 class skill:
     def __init__(skill, type, name, power, accuracy, crit):
@@ -50,6 +60,11 @@ class skill:
         skill.accuracy = accuracy
         skill.crit = crit
 
+#This function is only for finding out which demon will be encountered.
+#This is determined by taking the player level, and creating a range around it by three. The entire demon
+#list is then searched for demons that are within this range. Demons matching this criteria is added to a 
+#new list. A random demon is then pulled from this list and returned as a dictionary value with their
+#name and level.
 def encountering(lvl):
     EncounterList = []
     i = 0
@@ -67,11 +82,15 @@ def encountering(lvl):
 
     for demon in EncounterList:
         i += 1
-        
-    return EncounterList[random.randint(0,i)]
-        
 
+    demon = EncounterList[random.randint(0,i-1)]
+    for d, l in DemonList.items():
+        if d == demon:
+            Encountered = {demon:l}
+    return Encountered
 
+#Probably temporary. Checks if your level is higher, level, or higher. Gives you a percent chance to 
+#return True or False, as in whether or not you obtain the demon or not
 def negotiation(lvl, deflvl):
     if lvl < deflvl:
         if random.randint(0,2) == 2:
@@ -91,6 +110,7 @@ def fusion(type1, lvl1, type2, lvl2):
 
     return
 
+#Heavily based of the pokemon damage formula, will be modified as demons are balanced
 def dmgCalc(lvl, atkPower, atk, atkBoost, enDef, enDefBoost, crit, type):
     Damage = (((2*lvl)/5)+2)
     Damage = (Damage*atkPower)*((atk*atkBoost)/(enDef*enDefBoost))
@@ -103,6 +123,7 @@ def dmgCalc(lvl, atkPower, atk, atkBoost, enDef, enDefBoost, crit, type):
         Damage = Damage*1.5
     return Damage
 
+#Based off I believe SMT Nocturne's evasion check?
 def evasion(atkrAgi, defAgi, atkrlvl, deflvl, skillAccuracy):
     atkrTemp = ((atkrlvl/5)+3)
     atkrTemp = ((atkrAgi/atkrTemp)*6.25)
@@ -114,10 +135,3 @@ def evasion(atkrAgi, defAgi, atkrlvl, deflvl, skillAccuracy):
     else:
         return False
     
-
-#Checks if a given value is in a given dictionary
-def checkKey(dict, key):
-  if key in dict.keys():
-    return True
-  else:
-    return False
