@@ -8,3 +8,9 @@ def checkKey(dict, key):
     return True
   else:
     return False
+  
+def printDict(dict):
+  printed = ""
+  for key, value in dict.items():
+    printed = printed + (key + ": " + str(value) + "\n")
+  return printed

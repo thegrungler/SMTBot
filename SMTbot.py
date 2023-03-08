@@ -75,7 +75,9 @@ async def negotiate(interaction):
 @tree.command(name="checkparty", description="shows what demons you have")
 async def checkparty(interaction):
     if EZ.checkKey(PlayerList, interaction.user.id) == True:
-        await interaction.response.send_message(PlayerList[interaction.user.id].storage)
+        embedVar = discord.Embed(title=interaction.user.display_name)
+        embedVar.add_field(name="Your demon storage: ", value=EZ.printDict(PlayerList[interaction.user.id].storage))
+        await interaction.response.send_message(embed=embedVar)
     else:
         await interaction.response.send_message(error1, ephemeral=True)
 
