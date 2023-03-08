@@ -52,6 +52,9 @@ class player:
         player.storage = storage
         storage = {}
 
+    def checkparty(self):
+        return self.storage
+
 class skill:
     def __init__(skill, type, name, power, accuracy, crit):
         skill.type = type
